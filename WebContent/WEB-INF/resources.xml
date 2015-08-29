@@ -1,0 +1,9 @@
+<Resource id="BCHackDb" type="DataSource">
+
+    JdbcDriver  com.mysql.jdbc.Driver
+    JdbcUrl jdbc:mysql://localhost:3306/bookcrossing
+    UserName    root
+    Password	pierce@6
+    JtaManaged	true
+
+</Resource>
