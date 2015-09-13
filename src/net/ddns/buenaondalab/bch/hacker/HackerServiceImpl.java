@@ -2,6 +2,7 @@ package net.ddns.buenaondalab.bch.hacker;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.ejb.EJB;
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import net.ddns.buenaondalab.bch.dao.PlaceDao;
 import net.ddns.buenaondalab.bch.model.Country;
+import net.ddns.buenaondalab.bch.model.Region;
 
 @Stateless
 @LocalBean
@@ -43,7 +45,7 @@ public class HackerServiceImpl implements HackerService {
 	@EJB
 	PlaceDao placeDao;
 	
-	private Logger logger = LoggerFactory.getLogger(HackerServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(HackerServiceImpl.class);
 	
 //	private List<Country> countries = new ArrayList<Country>();
 //	private List<Region> regions = new ArrayList<Region>();
@@ -51,15 +53,15 @@ public class HackerServiceImpl implements HackerService {
 //	private List<Place> places = new ArrayList<Place>();
 //	private List<Book> books = new ArrayList<Book>();
 		
-	private String url;
+//	private String url;
 	
 	private void syncCountries() {
 		
 		try {
 		
-		System.out.println("Getting countries...");
-		this.setUrl(SEARCH_URL);
-		Map<Long,String> countryMap = this.getData();
+		LOGGER.info("Getting countries...");
+		
+		Map<Long,String> countryMap = this.getData(SEARCH_URL);
 		for (Long id : countryMap.keySet()) {
 			String value = countryMap.get(id);
 			Country dbCountry = countryDao.findById(Country.class, id);
@@ -75,6 +77,29 @@ public class HackerServiceImpl implements HackerService {
 	
 	private void syncRegions() {
 		
+		try {
+		
+			LOGGER.info("getting regions...");
+			List<Country> countries = countryDao.findAll(Country.class);
+		
+			for (Country country : countries) {
+				
+				Map<Long, String> regionMap;			
+				regionMap = this.getData(SEARCH_URL + "/" + country.getId());
+			 
+				for (Long id : regionMap.keySet()) {
+					String value = regionMap.get(id);
+					Region dbRegion = regionDao.findById(Region.class, id);
+					if (dbRegion == null) {
+						regionDao.create(new Region(id,value,country));
+					}
+				}
+			}
+		}
+		
+		catch (IOException e) {
+			
+		}
 	}
 	
 	private void syncCities() {
@@ -109,7 +134,7 @@ public class HackerServiceImpl implements HackerService {
 	 * @return
 	 * @throws IOException
 	 */
-	 private Map<Long,String> getData() throws IOException{
+	 private Map<Long,String> getData(String url) throws IOException{
 		
 		//System.out.println("Starting retrieving data...");
 		Map<Long,String> data = new HashMap<Long,String>();
@@ -129,11 +154,11 @@ public class HackerServiceImpl implements HackerService {
 		return data;
 	}
 	 
-	public String getUrl() {
-		return url;
-	}
-		
-	public void setUrl(String url) {
-		this.url = url;
-	}
+//	public String getUrl() {
+//		return url;
+//	}
+//		
+//	public void setUrl(String url) {
+//		this.url = url;
+//	}
 }

@@ -34,7 +34,12 @@ public class Region implements Serializable {
 	private List<City> cities;
 	private Country country;
 
-	public Region() {
+	public Region() {}
+	
+	public Region(Long id, String name, Country country) {
+		this.id = String.valueOf(id);
+		this.name = name;
+		this.country = country;
 	}
 
 

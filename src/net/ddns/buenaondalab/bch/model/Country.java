@@ -27,13 +27,13 @@ import javax.xml.bind.annotation.XmlTransient;
 })
 
 public class Country implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
 	private List<Region> regions;
 
-	public Country() {
-	}
+	public Country() {}
 
 
 	public Country(Long id, String name) {

@@ -33,7 +33,7 @@ public class PlacesController {
 	@Path("/all")
 	public List<Place> getAllPlaces() {
 		
-		List<Place> places = placeService.findAll(Place.class);
+		List<Place> places = placeService.findAll();
 		return places;		
 	}
 	
@@ -47,10 +47,10 @@ public class PlacesController {
 		List<Place> places;
 		
 		if(country.contentEquals("all")) {
-			places = placeService.findAll(Place.class);
+			places = placeService.findAll();
 		}
 		else {
-			places = placeService.getPlacesByCountryName(country);
+			places = placeService.getPlacesByCountry(country);
 		}
 		return places;
 	}
@@ -63,7 +63,7 @@ public class PlacesController {
 	@Path("/{country}/{region}")
 	public List<Place> getPlacesInRegion(@PathParam("region") final String region) {
 		
-		List<Place> places = placeService.getPlacesByRegionName(region);
+		List<Place> places = placeService.getPlacesByRegion(region);
 		return places;
 	}
 	
@@ -74,7 +74,7 @@ public class PlacesController {
 	@Path("/{country}/{region}/{city}")
 	public List<Place> getPlacesInCity(@PathParam("city") final String city) {
 		
-		List<Place> places = placeService.getPlacesByCityName(city);
+		List<Place> places = placeService.getPlacesByCity(city);
 		return places;
 	}
 	

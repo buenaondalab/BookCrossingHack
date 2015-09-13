@@ -7,6 +7,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import net.ddns.buenaondalab.bch.dao.CityDao;
+import net.ddns.buenaondalab.bch.dao.CountryDao;
 import net.ddns.buenaondalab.bch.dao.PlaceDao;
 import net.ddns.buenaondalab.bch.dao.RegionDao;
 import net.ddns.buenaondalab.bch.model.City;
@@ -25,6 +26,8 @@ public class PlaceServiceImpl implements PlaceService {
 	RegionDao regDao;
 	@EJB
 	CityDao cityDao;
+	@EJB
+	CountryDao countryDao;
 	
 	@Override
 	public List<Place> getPlaces(Country c) {
@@ -44,14 +47,18 @@ public class PlaceServiceImpl implements PlaceService {
 		return placeDao.getPlaces(c);
 	}
 	
+	/**
+	 * @param country is the country name
+	 */
 	@Override
-	public List<Place> getPlacesByCountryName(String country) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Place> getPlacesByCountry(String country) {
+		
+		Country c = countryDao.findByName(country).get(0);
+		return placeDao.getPlaces(c);
 	}
 
 	@Override
-	public List<Place> getPlacesByRegionName(String regName) {
+	public List<Place> getPlacesByRegion(String regName) {
 		
 		Region r = regDao.findByName(regName).get(0);		
 		return placeDao.getPlaces(r);
@@ -59,36 +66,36 @@ public class PlaceServiceImpl implements PlaceService {
 	
 	//TODO: What about many cities with the same name?
 	@Override
-	public List<Place> getPlacesByCityName(String cityName) {
+	public List<Place> getPlacesByCity(String cityName) {
 		City c = cityDao.findByName(cityName).get(0);
 		return placeDao.getPlaces(c);
 	}
 	
 
 	@Override
-	public <E> E create(E e) {
-		return placeDao.create(e);
+	public Place create(Place p) {
+		return placeDao.create(p);
 	}
 
 	@Override
-	public <E> E update(E e) {
-		return placeDao.update(e);
+	public Place update(Place p) {
+		return placeDao.update(p);
 	}
 
 	@Override
-	public <E> void delete(Class<E> clazz, long id) {
-		placeDao.delete(clazz, id);
+	public void delete(long id) {
+		placeDao.delete(Place.class, id);
 		
 	}
 
 	@Override
-	public <E> E findById(Class<E> clazz, long id) {
-		return placeDao.findById(clazz, id);
+	public Place findById(long id) {
+		return placeDao.findById(Place.class, id);
 	}
 
 	@Override
-	public <E> List<E> findAll(Class<E> clazz) {
-		return placeDao.findAll(clazz);
+	public List<Place> findAll() {
+		return placeDao.findAll(Place.class);
 	}
 
 	

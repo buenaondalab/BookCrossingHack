@@ -12,15 +12,15 @@ import net.ddns.buenaondalab.bch.model.Region;
 @Local
 public interface PlaceService {
 	
-	<E> E create(E e);
+	Place create(Place p);
 
-	<E> E update(E e);
+	Place update(Place p);
 
-	<E> void delete(Class<E> clazz, long id);
+	void delete(long id);
 
-	<E> E findById(Class<E> clazz, long id);
+	Place findById(long id);
 	
-	<E> List<E> findAll(Class<E> clazz);
+	List<Place> findAll();
 	
 	/**
 	 * Get all places in Country c
@@ -36,7 +36,7 @@ public interface PlaceService {
 	 */
 	public List<Place> getPlaces(Region r);
 	
-	public List<Place> getPlacesByRegionName(String regName);
+	public List<Place> getPlacesByRegion(String regName);
 	
 	
 	/**
@@ -46,8 +46,8 @@ public interface PlaceService {
 	 */
 	public List<Place> getPlaces(City c);
 	
-	public List<Place> getPlacesByCityName(String cityName);
+	public List<Place> getPlacesByCity(String cityName);
 
-	public List<Place> getPlacesByCountryName(String country);
+	public List<Place> getPlacesByCountry(String country);
 
 }

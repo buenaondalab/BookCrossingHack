@@ -21,9 +21,7 @@ public class BCHContextListener implements ServletContextListener {
     /**
      * Default constructor. 
      */
-    public BCHContextListener() {
-        // TODO Auto-generated constructor stub
-    }
+    public BCHContextListener() {}
 
 	/**
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)

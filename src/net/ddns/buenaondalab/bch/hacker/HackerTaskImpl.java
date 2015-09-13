@@ -32,6 +32,7 @@ public class HackerTaskImpl implements HackerTask {
 
    @Override
    public void execute(long timeout, long interval) {
+	   
       this.timerService.createTimer(timeout, interval, "Timer interval set to + " + interval + "ms");
    }
  
@@ -42,6 +43,7 @@ public class HackerTaskImpl implements HackerTask {
 	@Timeout
 	@Override
 	public void synchDBData(Timer timer) {
+		
 		logger.info((String) timer.getInfo());
 	}
 }
