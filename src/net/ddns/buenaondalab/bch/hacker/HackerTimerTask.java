@@ -4,7 +4,7 @@ import javax.ejb.Local;
 import javax.ejb.Timer;
 
 @Local
-public interface HackerTask {
+public interface HackerTimerTask {
 
 	void execute(long timeout);
 

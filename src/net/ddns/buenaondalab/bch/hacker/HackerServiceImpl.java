@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.ddns.buenaondalab.bch.dao.PlaceDao;
+import net.ddns.buenaondalab.bch.model.City;
 import net.ddns.buenaondalab.bch.model.Country;
 import net.ddns.buenaondalab.bch.model.Region;
 
@@ -32,7 +33,7 @@ public class HackerServiceImpl implements HackerService {
 	/** Url to the page listing all books in Italy */
 	private static final String BOOKCROSSING_IT = "http://www.bookcrossing.com/hunt/19";
 	private static final String DIV_BOOKSHELF_HOLDER = "dBookShelfHolder";
-	protected static final String SPAN_SZONE_HEADER = "sZoneHeader";
+	private static final String SPAN_SZONE_HEADER = "sZoneHeader";
 	
 	public static final long ITALY_ID = 19;
 	
@@ -67,10 +68,11 @@ public class HackerServiceImpl implements HackerService {
 			Country dbCountry = countryDao.findById(Country.class, id);
 			if(dbCountry == null) {
 				countryDao.create(new Country(id,value));
+				LOGGER.info("Country {} created!", value);
 			}
 		}
 		} catch (IOException e) {
-			
+			LOGGER.error("Problems retrieving countries data", e);
 		}
 		
 	}
@@ -79,7 +81,7 @@ public class HackerServiceImpl implements HackerService {
 		
 		try {
 		
-			LOGGER.info("getting regions...");
+			LOGGER.info("Getting regions...");
 			List<Country> countries = countryDao.findAll(Country.class);
 		
 			for (Country country : countries) {
@@ -92,26 +94,52 @@ public class HackerServiceImpl implements HackerService {
 					Region dbRegion = regionDao.findById(Region.class, id);
 					if (dbRegion == null) {
 						regionDao.create(new Region(id,value,country));
+						LOGGER.info("Region {} created!", value);
 					}
 				}
 			}
 		}
 		
 		catch (IOException e) {
-			
+			LOGGER.error("Problems retrieving regions data", e);
 		}
 	}
 	
 	private void syncCities() {
+		//TODO: to implement!
 		
+		try {
+			
+			LOGGER.info("Getting cities...");
+			List<Region> regions = regionDao.findAll(Region.class);
+		
+			for (Region region : regions) {
+				
+				Map<Long, String> cityMap;			
+				cityMap = this.getData(SEARCH_URL + "/" + region.getCountry().getId() + "/" + region.getId());
+			 
+				for (Long id : cityMap.keySet()) {
+					String value = cityMap.get(id);
+					City dbCity = cityDao.findById(City.class, id);
+					if (dbCity == null) {
+						LOGGER.info("City {} created!", value);
+						cityDao.create(new City(id,value,region));
+					}
+				}
+			}
+		}
+		
+		catch (IOException e) {
+			LOGGER.error("Problems retrieving cities data", e);
+		}
 	}
 	
 	private void syncPlaces() {
-		
+		//TODO: to implement!
 	}
 	
 	private void syncBooks() {
-		
+		//TODO: to implement!
 	}
 	
 	/* (non-Javadoc)

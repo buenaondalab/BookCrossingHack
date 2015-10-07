@@ -28,7 +28,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 public class Country implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
+	
+	private static final long serialVersionUID = 7606942467209988550L;
 	private String id;
 	private String name;
 	private List<Region> regions;

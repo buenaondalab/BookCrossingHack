@@ -38,7 +38,7 @@ public class PlacesController {
 	}
 	
 	/**
-	 * List all release places in a specific region 
+	 * List all release places in a specific country 
 	 */
 	@GET
 	@Path("/{country}")

@@ -28,13 +28,19 @@ import javax.xml.bind.annotation.XmlTransient;
 	@NamedQuery(name="City.findByName", query="SELECT c FROM City c WHERE c.name = :name")
 })
 public class City implements Serializable {
-	private static final long serialVersionUID = 1L;
+	
+	private static final long serialVersionUID = -5893226262331396075L;
 	private String id;
 	private String name;
 	private Region region;
 	private List<Place> places;
 
-	public City() {
+	public City() {}
+	
+	public City(Long id, String name, Region r) {
+		this.id = String.valueOf(id);
+		this.name = name;
+		this.region = r;
 	}
 
 

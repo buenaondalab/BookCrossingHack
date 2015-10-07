@@ -13,7 +13,7 @@ import javax.servlet.annotation.WebListener;
 public class BCHContextListener implements ServletContextListener {
 	
 	@EJB
-	private HackerTask task;
+	private HackerTimerTask task;
 	
 	private static final long INTERVAL = 1000*60*60; // executes every hour 
 	
