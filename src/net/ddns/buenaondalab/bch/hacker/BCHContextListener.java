@@ -35,7 +35,7 @@ public class BCHContextListener implements ServletContextListener {
      */
     public void contextInitialized(ServletContextEvent arg0)  { 
         
-    	task.execute(1000, INTERVAL);
+    	task.execute(10000, INTERVAL);
     	System.out.println("HackerTask scheduled every " + INTERVAL +  "ms.");
     }
 	

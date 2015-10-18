@@ -148,11 +148,13 @@ public class HackerServiceImpl implements HackerService {
 	@Override
 	public void syncAll() {
 		
-		syncCountries();
-		syncRegions();
-		syncCities();
-		syncPlaces();
-		syncBooks();
+		LOGGER.info("Synchronizing all...");
+		
+//		syncCountries();
+//		syncRegions();
+//		syncCities();
+//		syncPlaces();
+//		syncBooks();
 		
 	}
 
