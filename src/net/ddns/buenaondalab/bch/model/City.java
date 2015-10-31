@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class City implements Serializable {
 	
 	private static final long serialVersionUID = -5893226262331396075L;
-	private String id;
+	private Long id;
 	private String name;
 	private Region region;
 	private List<Place> places;
@@ -38,7 +38,7 @@ public class City implements Serializable {
 	public City() {}
 	
 	public City(Long id, String name, Region r) {
-		this.id = String.valueOf(id);
+		this.id = id;
 		this.name = name;
 		this.region = r;
 	}
@@ -46,11 +46,11 @@ public class City implements Serializable {
 
 	@Id
 	@Column(unique=true, nullable=false)
-	public String getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

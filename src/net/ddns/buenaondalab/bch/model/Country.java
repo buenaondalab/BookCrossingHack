@@ -30,7 +30,7 @@ public class Country implements Serializable {
 	
 	
 	private static final long serialVersionUID = 7606942467209988550L;
-	private String id;
+	private Long id;
 	private String name;
 	private List<Region> regions;
 
@@ -38,18 +38,18 @@ public class Country implements Serializable {
 
 
 	public Country(Long id, String name) {
-		this.id = String.valueOf(id);
+		this.id = id;
 		this.name = name;
 	}
 
 
 	@Id
 	@Column(unique=true, nullable=false)
-	public String getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

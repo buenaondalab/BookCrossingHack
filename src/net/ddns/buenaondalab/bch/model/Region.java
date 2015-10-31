@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 })
 public class Region implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String id;
+	private Long id;
 	private String name;
 	private List<City> cities;
 	private Country country;
@@ -37,7 +37,7 @@ public class Region implements Serializable {
 	public Region() {}
 	
 	public Region(Long id, String name, Country country) {
-		this.id = String.valueOf(id);
+		this.id = id;
 		this.name = name;
 		this.country = country;
 	}
@@ -45,11 +45,11 @@ public class Region implements Serializable {
 
 	@Id
 	@Column(unique=true, nullable=false)
-	public String getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

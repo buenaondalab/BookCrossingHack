@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 })
 public class Place implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String id;
+	private Long id;
 	private String address;
 	private double lat;
 	private double lng;
@@ -41,11 +41,11 @@ public class Place implements Serializable {
 
 	@Id
 	@Column(unique=true, nullable=false)
-	public String getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -60,17 +60,21 @@ public class HackerServiceImpl implements HackerService {
 		
 		try {
 		
-		LOGGER.info("Getting countries...");
+			LOGGER.info("Getting countries...");
 		
-		Map<Long,String> countryMap = this.getData(SEARCH_URL);
-		for (Long id : countryMap.keySet()) {
-			String value = countryMap.get(id);
-			Country dbCountry = countryDao.findById(Country.class, id);
-			if(dbCountry == null) {
-				countryDao.create(new Country(id,value));
-				LOGGER.info("Country {} created!", value);
+			Map<Long,String> countryMap = this.getData(SEARCH_URL);
+			
+			for (Long id : countryMap.keySet()) {
+				
+				String value = countryMap.get(id);
+				Country dbCountry = countryDao.findById(Country.class, id);
+				
+				if(dbCountry == null) {
+					countryDao.create(new Country(id,value));
+					LOGGER.info("Country {} created!", value);
+				}
 			}
-		}
+			
 		} catch (IOException e) {
 			LOGGER.error("Problems retrieving countries data", e);
 		}
@@ -150,7 +154,7 @@ public class HackerServiceImpl implements HackerService {
 		
 		LOGGER.info("Synchronizing all...");
 		
-//		syncCountries();
+		syncCountries();
 //		syncRegions();
 //		syncCities();
 //		syncPlaces();
