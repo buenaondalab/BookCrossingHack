@@ -155,8 +155,8 @@ public class HackerServiceImpl implements HackerService {
 		LOGGER.info("Synchronizing all...");
 		
 		syncCountries();
-//		syncRegions();
-//		syncCities();
+		syncRegions();
+		syncCities();
 //		syncPlaces();
 //		syncBooks();
 		
