@@ -119,7 +119,8 @@ public class HackerServiceImpl implements HackerService {
 		
 			for (Region region : regions) {
 				
-				Map<Long, String> cityMap;			
+				Map<Long, String> cityMap;
+				//TODO: insert url field in entity class...
 				cityMap = this.getData(SEARCH_URL + "/" + region.getCountry().getId() + "/" + region.getId());
 			 
 				for (Long id : cityMap.keySet()) {

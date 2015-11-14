@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 
 import net.ddns.buenaondalab.bch.model.Place;
 import net.ddns.buenaondalab.bch.service.PlaceService;
@@ -18,6 +19,8 @@ import net.ddns.buenaondalab.bch.service.PlaceService;
  * @author andrea
  *
  */
+
+//TODO: add try catch around service calls... Let services throw exceptions!
 @Path("/places")
 @Produces("application/json")
 public class PlacesController {
@@ -76,6 +79,23 @@ public class PlacesController {
 		
 		List<Place> places = placeService.getPlacesByCity(city);
 		return places;
+	}
+	
+	/**
+	 * List all release places around a specific point in coordinates within radious
+	 * @param lat
+	 * @param lng
+	 * @param radius in km
+	 */
+	@GET
+	@Path("/around/{radius}")
+	public List<Place> getPlacesAround(@PathParam("radius") final Double radius,
+									   @QueryParam("lat") final Double lat,
+									   @QueryParam("lng") final Double lng) {
+		
+		//TODO: To Implement...
+		
+		return null;
 	}
 	
 

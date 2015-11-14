@@ -36,6 +36,12 @@ public class PlaceDaoImpl extends DaoImpl implements PlaceDao {
 		query.setParameter("city", c);
 		return query.getResultList();
 	}
+
+	@Override
+	public List<Place> findAround(Double radius, Double lat, Double lng) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

@@ -24,7 +24,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 	@NamedQuery(name="Place.findAll", query="SELECT p FROM Place p"),
 	@NamedQuery(name="Place.findByCountry", query="SELECT p FROM Place p WHERE p.city.region.country = :country"),
 	@NamedQuery(name="Place.findByRegion", query="SELECT p FROM Place p WHERE p.city.region = :region"),
-	@NamedQuery(name="Place.findByCity", query="SELECT p FROM Place p WHERE p.city = :city")
+	@NamedQuery(name="Place.findByCity", query="SELECT p FROM Place p WHERE p.city = :city"),
+	@NamedQuery(name="Place.findAround", query="SELECT p FROM Place p WHERE p.lat BETWEEN :minLat AND :maxLat AND p.lng BETWEEN :minLng AND :maxLng")
 })
 public class Place implements Serializable {
 	private static final long serialVersionUID = 1L;

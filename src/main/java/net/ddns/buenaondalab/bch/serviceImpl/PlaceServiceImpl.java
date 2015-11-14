@@ -64,7 +64,7 @@ public class PlaceServiceImpl implements PlaceService {
 		return placeDao.getPlaces(r);
 	}
 	
-	//TODO: What about many cities with the same name?
+	//TODO: What about many cities with the same name? Actually only the first is retrieved
 	@Override
 	public List<Place> getPlacesByCity(String cityName) {
 		City c = cityDao.findByName(cityName).get(0);
@@ -96,6 +96,11 @@ public class PlaceServiceImpl implements PlaceService {
 	@Override
 	public List<Place> findAll() {
 		return placeDao.findAll(Place.class);
+	}
+
+	@Override
+	public List<Place> getPlacesAround(Double radius, Double lat, Double lng) {
+		return placeDao.findAround(radius, lat, lng);
 	}
 
 	

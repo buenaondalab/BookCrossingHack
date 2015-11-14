@@ -1,4 +1,4 @@
-package net.ddns.buenaondalab.bch.service;
+package net.ddns.buenaondalab.bch.dao;
 
 import java.util.List;
 
@@ -10,17 +10,8 @@ import net.ddns.buenaondalab.bch.model.Place;
 import net.ddns.buenaondalab.bch.model.Region;
 
 @Local
-public interface PlaceService {
+public interface PlaceDao extends Dao {
 	
-	Place create(Place p);
-
-	Place update(Place p);
-
-	void delete(long id);
-
-	Place findById(long id);
-	
-	List<Place> findAll();
 	
 	/**
 	 * Get all places in Country c
@@ -36,18 +27,21 @@ public interface PlaceService {
 	 */
 	public List<Place> getPlaces(Region r);
 	
-	public List<Place> getPlacesByRegion(String regName);
-	
-	
 	/**
 	 * Get all places in City c
 	 * @param c the City
 	 * @return
 	 */
 	public List<Place> getPlaces(City c);
-	
-	public List<Place> getPlacesByCity(String cityName);
 
-	public List<Place> getPlacesByCountry(String country);
+	/**
+	 * Get all places within a certain <code>radius</code>
+	 * centered in the position defined by coords <code>lat</code> and <code>lng</code>
+	 * @param radius
+	 * @param lat
+	 * @param lng
+	 * @return
+	 */
+	public List<Place> findAround(Double radius, Double lat, Double lng);
 
 }

@@ -6,11 +6,11 @@
 		<!-- <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider> -->
 		
 		<jta-data-source><!-- java:openejb/Resource/ -->BCHackDb</jta-data-source>
-		
-		<class>net.ddns.buenaondalab.bch.model.Country</class>
 		<class>net.ddns.buenaondalab.bch.model.Region</class>
-		<class>net.ddns.buenaondalab.bch.model.City</class>
 		<class>net.ddns.buenaondalab.bch.model.Place</class>
+		<class>net.ddns.buenaondalab.bch.model.City</class>
+		<class>net.ddns.buenaondalab.bch.model.Country</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		
 		<properties>
 		<!-- Enables logging... -->
