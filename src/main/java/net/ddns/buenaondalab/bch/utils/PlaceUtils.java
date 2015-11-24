@@ -1,6 +1,6 @@
 package net.ddns.buenaondalab.bch.utils;
 
-import net.ddns.buenaondalab.bch.model.Place;
+import net.ddns.buenaondalab.bch.model.GeoPosition;
 
 public class PlaceUtils {
 	
@@ -12,7 +12,7 @@ public class PlaceUtils {
 	 * @param p2
 	 * @return
 	 */
-	public static double calculateDistance(Place p1, Place p2) {
+	public static double calculateDistance(GeoPosition p1, GeoPosition p2) {
 		
 		double lat1, lat2, lng1, lng2;
 		
@@ -28,5 +28,6 @@ public class PlaceUtils {
 				 )
 		);
 	}
+	
 
 }

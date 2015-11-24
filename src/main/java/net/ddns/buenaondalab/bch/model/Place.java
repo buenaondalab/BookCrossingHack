@@ -27,8 +27,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 	@NamedQuery(name="Place.findByCity", query="SELECT p FROM Place p WHERE p.city = :city"),
 	@NamedQuery(name="Place.findAround", query="SELECT p FROM Place p WHERE p.lat BETWEEN :minLat AND :maxLat AND p.lng BETWEEN :minLng AND :maxLng")
 })
-public class Place implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Place implements GeoPosition, Serializable {
+	
+	private static final long serialVersionUID = 5404046414068333473L;
 	private Long id;
 	private String address;
 	private double lat;

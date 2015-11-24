@@ -33,7 +33,7 @@
 		 For that reason, we include the following <style> declaration:-->
 	<style type="text/css">
   		html, body { height: 100%; margin: 0; padding: 0; }
-  		#map { height: 100%; }
+  		#map { min-height: 300px; height: 100%; }
 	</style>
   </head>
 
@@ -43,25 +43,33 @@
 
       <div class="site-wrapper-inner">
 
-        <div class="cover-container">
+        <div class="container cover-container">
 
           <div class="masthead clearfix">
             <div class="inner">
-              <h3 class="masthead-brand">Buenaonda <br> Bookcrossing</h3>
-              <nav>
-                <ul class="nav masthead-nav">
-                  <li class="active"><a href="#">Home</a></li>
-                  <li><a href="#">Features</a></li>
-                  <li><a href="#">Contact</a></li>
-                </ul>
-              </nav>
+              <div class="row masthead-brand">
+              	<div class="col-md-3">
+              		<img class="img-responsive" src="./img/logo.png" alt="BuenaOnda Bookrossing" class="img-responsive"/>
+				</div>   
+				<div class="col-md-9">          
+              
+              	<nav>
+                	<ul class="nav masthead-nav">
+                  		<li class="active"><a href="#">Home</a></li>
+                  		<li><a href="#">Features</a></li>
+                  		<li><a href="#">Contact</a></li>
+               		 </ul>
+              	</nav>
+              	</div> 
+              </div>
             </div>
           </div>
-
-
-		  <div id="map"></div>
+          
+          <div class="inner cover">
+          
+          	<div id="map"></div>
 		  
-    	  <script type="text/javascript">
+    	  	<script type="text/javascript">
 			var map;
 			function initMap() {
   			map = new google.maps.Map(document.getElementById('map'), {
@@ -69,24 +77,24 @@
     					zoom: 8
   			  	  });
 			}
- 		  </script>
+ 		  	</script>
  		  
-    	  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7MAu2agTt2kuKgHeszUsBouRKOyFO8D8&callback=initMap"></script>
-    	
-          <div class="inner cover">
-            <h1 class="cover-heading">Books are all around you...</h1>
-            <p class="lead">Doors are opened... read and share.</p>
-            <p class="lead">
-              <a href="#" class="btn btn-lg btn-default">Learn more</a>
-            </p>
+    	  	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7MAu2agTt2kuKgHeszUsBouRKOyFO8D8&callback=initMap"></script>
+    	  </div>
+          
+          <div class="row">
+            <h3 class="cover-heading">Books are all around you...</h3>
           </div>
-
-          <div class="">
-            <div class="inner">
+          <div class="row">
+            <p>Doors are opened... read and share.</p>
+          </div>
+          <div class="row">  
+              <a href="#" class="btn btn-lg btn-default">Catch it</a>
+          </div>
+        </div>
+        
+        <div class="mastfoot">
               <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-            </div>
-          </div>
-
         </div>
 
       </div>
