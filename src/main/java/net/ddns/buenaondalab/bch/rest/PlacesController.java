@@ -88,14 +88,15 @@ public class PlacesController {
 	 * @param radius in km
 	 */
 	@GET
-	@Path("/around/{radius}")
-	public List<Place> getPlacesAround(@PathParam("radius") final Double radius,
-									   @QueryParam("lat") final Double lat,
-									   @QueryParam("lng") final Double lng) {
+	@Path("/bounded")
+	public List<Place> getPlacesAround(@QueryParam("north") final  double north,
+									   @QueryParam("east") final double east,
+									   @QueryParam("south") final double south,
+									   @QueryParam("west") final double west) {
 		
-		//TODO: To Implement...
+		List<Place> places = placeService.getPlacesAround(north,east,south,west);
 		
-		return null;
+		return places;
 	}
 	
 

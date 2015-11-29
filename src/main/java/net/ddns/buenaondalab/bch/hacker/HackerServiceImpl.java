@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -25,7 +27,7 @@ import net.ddns.buenaondalab.bch.model.Region;
 @LocalBean
 public class HackerServiceImpl implements HackerService {	
 		
-	private static final int TIMEOUT = 10000;
+	private static final int TIMEOUT = 30000;
 		
 	private static final String BOOKCROSSING_SITE = "http://www.bookcrossing.com";
 	protected static final String SEARCH_URL = "http://www.bookcrossing.com/hunt";
@@ -56,7 +58,9 @@ public class HackerServiceImpl implements HackerService {
 		
 //	private String url;
 	
-	private void syncCountries() {
+	//TODO: ADD DELETION
+	@Override
+	public void syncCountries() {
 		
 		try {
 		
@@ -74,6 +78,7 @@ public class HackerServiceImpl implements HackerService {
 					LOGGER.info("Country {} created!", value);
 				}
 			}
+			LOGGER.info("Countries are synchronized!");
 			
 		} catch (IOException e) {
 			LOGGER.error("Problems retrieving countries data", e);
@@ -81,7 +86,9 @@ public class HackerServiceImpl implements HackerService {
 		
 	}
 	
-	private void syncRegions() {
+	//TODO: ADD DELETION
+	@Override
+	public void syncRegions() {
 		
 		try {
 		
@@ -90,28 +97,37 @@ public class HackerServiceImpl implements HackerService {
 		
 			for (Country country : countries) {
 				
-				Map<Long, String> regionMap;			
-				regionMap = this.getData(SEARCH_URL + "/" + country.getId());
-			 
-				for (Long id : regionMap.keySet()) {
-					String value = regionMap.get(id);
-					Region dbRegion = regionDao.findById(Region.class, id);
-					if (dbRegion == null) {
-						regionDao.create(new Region(id,value,country));
-						LOGGER.info("Region {} created!", value);
-					}
-				}
+				createNewRegions(country);
+				
 			}
+			LOGGER.info("Regions are synchronized!");
 		}
 		
 		catch (IOException e) {
 			LOGGER.error("Problems retrieving regions data", e);
 		}
 	}
-	
-	private void syncCities() {
-		//TODO: to implement!
+
+	//@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	private void createNewRegions(Country country) throws IOException {
+		Map<Long, String> regionMap;			
+		regionMap = this.getData(SEARCH_URL + "/" + country.getId());
 		
+		for (Long id : regionMap.keySet()) {
+			String value = regionMap.get(id);
+			Region dbRegion = regionDao.findById(Region.class, id);
+			if (dbRegion == null) {
+				regionDao.create(new Region(id,value,country));
+				LOGGER.info("Region {} in country {} created!", value, country.getName());
+			}
+		}
+	}
+	
+	
+	//TODO: ADD DELETION
+	@Override
+	public void syncCities() {
+				
 		try {
 			
 			LOGGER.info("Getting cities...");
@@ -119,32 +135,45 @@ public class HackerServiceImpl implements HackerService {
 		
 			for (Region region : regions) {
 				
-				Map<Long, String> cityMap;
-				//TODO: insert url field in entity class...
-				cityMap = this.getData(SEARCH_URL + "/" + region.getCountry().getId() + "/" + region.getId());
-			 
-				for (Long id : cityMap.keySet()) {
-					String value = cityMap.get(id);
-					City dbCity = cityDao.findById(City.class, id);
-					if (dbCity == null) {
-						LOGGER.info("City {} created!", value);
-						cityDao.create(new City(id,value,region));
-					}
-				}
+				createNewCities(region);
+				
 			}
+			LOGGER.info("Cities are synchronized!");
 		}
 		
 		catch (IOException e) {
 			LOGGER.error("Problems retrieving cities data", e);
 		}
 	}
-	
-	private void syncPlaces() {
-		//TODO: to implement!
+
+	//@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	private void createNewCities(Region region) throws IOException {
+		Map<Long, String> cityMap;
+		//TODO: insert url field in entity class...
+		cityMap = this.getData(SEARCH_URL + "/" + region.getCountry().getId() + "/" + region.getId());
+ 
+		for (Long id : cityMap.keySet()) {
+			String value = cityMap.get(id);
+			City dbCity = cityDao.findById(City.class, id);
+			if (dbCity == null) {
+				LOGGER.info("City {} in country {} created!", value, region.getCountry().getName());
+				cityDao.create(new City(id,value,region));
+			}
+		}
 	}
 	
-	private void syncBooks() {
-		//TODO: to implement!
+	//TODO: ADD DELETION
+	@Override
+	public void syncPlaces() {
+		//TODO: to implement...
+		LOGGER.info("Synchronizing places to implement...");
+	}
+	
+	//TODO: ADD DELETION
+	@Override
+	public void syncBooks() {
+		//TODO: to implement...
+		LOGGER.info("Synchronizing books to implement...");
 	}
 	
 	/* (non-Javadoc)
@@ -175,16 +204,25 @@ public class HackerServiceImpl implements HackerService {
 		Map<Long,String> data = new HashMap<Long,String>();
 		Document bcPage = Jsoup.connect(url).timeout(TIMEOUT).get();
 		Element bookshelf = bcPage.getElementById(DIV_BOOKSHELF_HOLDER);
-		Elements as = new Elements();
 		
-		as.addAll(bookshelf.getElementsByTag("a"));
-		
-		for (Element a : as) {			
-			String[] link = a.attr("href").split("/");
-			Long id = Long.valueOf(link[link.length-1]);
-			String value = a.text();
-			data.put(id,value);
+		if (bookshelf!= null) {
+			
+			Elements as = new Elements();
+			
+			as.addAll(bookshelf.getElementsByTag("a"));
+			
+			for (Element a : as) {			
+				String[] link = a.attr("href").split("/");
+				Long id = Long.valueOf(link[link.length-1]);
+				String value = a.text();
+				data.put(id,value);
+			}
 		}
+		
+		else {
+			LOGGER.warn("No element with id: {} found at url: {}" , DIV_BOOKSHELF_HOLDER, url);
+		}
+		
 		
 		return data;
 	}

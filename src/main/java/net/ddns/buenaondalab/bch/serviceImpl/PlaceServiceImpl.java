@@ -99,8 +99,8 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 
 	@Override
-	public List<Place> getPlacesAround(Double radius, Double lat, Double lng) {
-		return placeDao.findAround(radius, lat, lng);
+	public List<Place> getPlacesAround(Double north, Double east, Double south, Double west) {
+		return placeDao.findAround(north, east, south, west);
 	}
 
 	

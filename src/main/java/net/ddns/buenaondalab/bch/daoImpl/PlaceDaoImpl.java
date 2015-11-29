@@ -1,5 +1,6 @@
 package net.ddns.buenaondalab.bch.daoImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -32,15 +33,26 @@ public class PlaceDaoImpl extends DaoImpl implements PlaceDao {
 
 	@Override
 	public List<Place> getPlaces(City c) {
+		
 		TypedQuery<Place> query = em.createNamedQuery("Place.findByCity", Place.class);
 		query.setParameter("city", c);
 		return query.getResultList();
 	}
 
 	@Override
-	public List<Place> findAround(Double radius, Double lat, Double lng) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Place> findAround(Double north, Double east, Double south, Double west) {
+		
+		List<Place> result = new ArrayList<Place>();
+		
+		TypedQuery<Place> query = em.createNamedQuery("Place.findAround", Place.class);
+		query.setParameter("north", north);
+		query.setParameter("south", south);
+		query.setParameter("east", east);
+		query.setParameter("west", west);
+		
+		result = query.getResultList();
+		
+		return result;
 	}
 	
 	

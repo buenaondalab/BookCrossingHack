@@ -3,19 +3,23 @@
 	
 	<persistence-unit name="BCHackDb" transaction-type="JTA">
 	
-		<!-- <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider> -->
+		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
 		
 		<jta-data-source><!-- java:openejb/Resource/ -->BCHackDb</jta-data-source>
-		<class>net.ddns.buenaondalab.bch.model.Region</class>
-		<class>net.ddns.buenaondalab.bch.model.Place</class>
+		<class>net.ddns.buenaondalab.bch.model.Book</class>
 		<class>net.ddns.buenaondalab.bch.model.City</class>
 		<class>net.ddns.buenaondalab.bch.model.Country</class>
+		<class>net.ddns.buenaondalab.bch.model.Place</class>
+		<class>net.ddns.buenaondalab.bch.model.Region</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		
 		<properties>
 		<!-- Enables logging... -->
 			<property name="openjpa.Log" value="SQL=Trace"/>
 			<property name="openjpa.ConnectionFactoryProperties" value="PrintParameters=true" />
+			<!-- <property name="eclipselink.logging.level" value="FINE"/>
+			<property name="eclipselink.logging.level.sql" value="FINE"/>
+			<property name="eclipselink.logging.parameters" value="true"/> -->
 		</properties>
 	</persistence-unit>
 </persistence>

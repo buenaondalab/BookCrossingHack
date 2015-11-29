@@ -2,11 +2,15 @@ package net.ddns.buenaondalab.bch.daoImpl;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
 import net.ddns.buenaondalab.bch.dao.CountryDao;
 import net.ddns.buenaondalab.bch.model.Country;
 
+@Stateless
+@LocalBean
 public class CountryDaoImpl extends DaoImpl implements CountryDao {
 
 	@Override

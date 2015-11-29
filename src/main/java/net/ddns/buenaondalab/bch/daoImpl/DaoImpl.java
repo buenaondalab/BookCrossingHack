@@ -63,11 +63,11 @@ public class DaoImpl implements Dao {
     /**
      * @author andrea (BuenaOndaLab)
      */
+    @Override
     public <E> List<E> findAll(Class<E> clazz) {
     	TypedQuery<E> query = em.createQuery("SELECT c FROM " + clazz.getSimpleName() + " c", clazz);
     	logger.info(query.toString());
     	List<E> results = query.getResultList();
     	return results;
     }
-
 }

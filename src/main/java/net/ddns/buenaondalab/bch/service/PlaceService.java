@@ -49,9 +49,8 @@ public interface PlaceService {
 	public List<Place> getPlaces(City c);
 	
 	public List<Place> getPlacesByCity(String cityName);
-	
-	
-	public List<Place> getPlacesAround(Double radius, Double lat, Double lng);
+
+	public List<Place> getPlacesAround(Double north, Double east, Double south, Double west);
 
 
 }

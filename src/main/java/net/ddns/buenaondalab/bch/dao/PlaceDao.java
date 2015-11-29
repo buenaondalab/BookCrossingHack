@@ -34,14 +34,7 @@ public interface PlaceDao extends Dao {
 	 */
 	public List<Place> getPlaces(City c);
 
-	/**
-	 * Get all places within a certain <code>radius</code>
-	 * centered in the position defined by coords <code>lat</code> and <code>lng</code>
-	 * @param radius
-	 * @param lat
-	 * @param lng
-	 * @return
-	 */
-	public List<Place> findAround(Double radius, Double lat, Double lng);
+	
+	List<Place> findAround(Double north, Double east, Double south, Double west);
 
 }

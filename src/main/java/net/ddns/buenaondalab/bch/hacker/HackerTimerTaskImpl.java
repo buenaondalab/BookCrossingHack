@@ -48,7 +48,12 @@ public class HackerTimerTaskImpl implements HackerTimerTask {
 	@Override
 	public void synchDBData(Timer timer) {
 		
-		hackerService.syncAll();		
+//		hackerService.syncAll();
+//		hackerService.syncCountries();
+//		hackerService.syncRegions();
+//		hackerService.syncCities();
+//		syncPlaces();
+//		syncBooks();
 		logger.info((String) timer.getInfo());
 	}
 }
