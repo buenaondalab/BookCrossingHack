@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="Andrea Pierdominici">
+    <!-- <link rel="icon" href="favicon.ico"> -->
+
+    <title>Login Bookcrossing</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap-3.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/cover.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    
+<!--     Note that some CSS that works within quirks mode is not valid in standards mode.
+		 In specific, all percentage-based sizes must inherit from parent block elements, and if any of those ancestors fail to specify a size, they are assumed to be sized at 0 x 0 pixels.
+		 For that reason, we include the following <style> declaration:-->
+	<style type="text/css">
+  		html, body { height: 100%; margin: 0; padding: 0; }
+  		#map { min-height: 300px; height: 100%; }
+	</style>
+	<script src="js/libs/jquery-1.11.3.js" type="text/javascript"></script>
+	<script src="js/login.js" type="text/javascript"></script>
+  </head>
+
+  <body>
+
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="container cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              <div class="row masthead-brand">
+              	<div class="col-md-3">
+              		<img class="img-responsive" src="./img/logo.png" alt="BuenaOnda Bookrossing" class="img-responsive"/>
+				</div>   
+				<div class="col-md-9">          
+              
+              	<nav>
+                	<ul class="nav masthead-nav">
+                  		<li><a href="#">Home</a></li>
+                  		<li class="active"><a href="#">Around</a></li>
+                  		<li><a href="login.html">LogIn</a></li>
+                  		<li><a href="#">Contacts</a>
+               		 </ul>
+              	</nav>
+              	</div> 
+              </div>
+            </div>
+          </div>
+          
+          
+          
+          <form action="/account/login" method="post">
+          	<h3>Login</h3>
+            <p>
+            	<label for="username">E-mail:</label>
+            	<input id="username" name="username" type="text" value="">
+            </p>
+            <p>
+            	<label for="password">Password:</label>
+                <input id="password" name="password" type="password" value="">
+            </p>
+            <input id="rememberMe" name="rememberMe" type="hidden" value="true">
+            <p>
+            	<label for="rememberMe">Memorizza dati di accesso?</label>
+                <input id="rememberMe" name="rememberMe" type="checkbox" value="true"><input name="rememberMe" type="hidden" value="false"> 
+            </p>
+            <p align="center"><br>
+            	<button onclick="this.value='';" type="submit" class="btn"><span><span>Accedi</span></span></button>
+            </p>
+			<p align="center"><br>
+            	<a href="/oauthlogin/twitter"><img src="/images/sign-in-with-twitter.png" width="151" height="24" border="0" alt=""></a>&nbsp;
+          		<a href="/oauthlogin/goodreads"><img src="/images/goodreads-login-button.gif" width="151" height="24" border="0" alt=""></a>&nbsp;
+          		<a href="/oauthlogin/facebook"><img src="/images/sign-in-with-facebook.png" width="154" height="22" border="0" alt=""></a>
+            </p>
+		  </form>
+          
+        </div>
+        
+        <div class="mastfoot">
+              <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="bootstrap-3.3.5/dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <script src="bootstrap-3.3.5/assets/js/ie10-viewport-bug-workaround.js"></script> -->
+  </body>
+</html>
