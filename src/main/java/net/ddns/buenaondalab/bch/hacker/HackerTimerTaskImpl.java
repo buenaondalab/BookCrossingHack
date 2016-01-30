@@ -10,6 +10,8 @@ import javax.ejb.TimerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.ddns.buenaondalab.bch.model.Country;
+
 @Stateless
 public class HackerTimerTaskImpl implements HackerTimerTask {
  
@@ -48,11 +50,16 @@ public class HackerTimerTaskImpl implements HackerTimerTask {
 	@Override
 	public void synchDBData(Timer timer) {
 		
+		Country italy = hackerService.findById(Country.class, HackerServiceImpl.ITALY_ID);
+		
 //		hackerService.syncAll();
 //		hackerService.syncCountries();
 //		hackerService.syncRegions();
+		hackerService.syncRegions(italy);
 //		hackerService.syncCities();
+		hackerService.syncCities(italy);
 //		syncPlaces();
+		hackerService.syncPlaces(italy);
 //		syncBooks();
 		logger.info((String) timer.getInfo());
 	}

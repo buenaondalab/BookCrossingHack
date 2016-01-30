@@ -2,25 +2,32 @@ package net.ddns.buenaondalab.bch.hacker;
 
 import javax.ejb.Local;
 
+import net.ddns.buenaondalab.bch.model.Country;
+import net.ddns.buenaondalab.bch.service.Service;
+
 @Local
-public interface HackerService {
+public interface HackerService extends Service {
 
 	void syncAll();
 
-	//@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	void syncCountries();
 
-	//@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	void syncRegions();
+	
+	void syncRegions(Country country);
 
-	//@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	void syncCities();
 	
-	//@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	void syncCities(Country country);
+	
 	void syncPlaces();
 	
-	//@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	void syncPlaces(Country country);
+	
 	void syncBooks();
+	
+	void syncBooks(Country country);
+
 	
 	
 

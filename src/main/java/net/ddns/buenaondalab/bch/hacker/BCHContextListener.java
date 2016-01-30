@@ -15,7 +15,7 @@ public class BCHContextListener implements ServletContextListener {
 	@EJB
 	private HackerTimerTask task;
 	
-	private static final long INTERVAL = 1000*60*60*6; // executes every 6 hour 
+	private static final long INTERVAL = 1000*60*60*3; // executes every 6 hour 
 	
 
     /**

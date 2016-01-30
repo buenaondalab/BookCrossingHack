@@ -18,7 +18,7 @@ import net.ddns.buenaondalab.bch.service.PlaceService;
 
 @Stateless
 @LocalBean
-public class PlaceServiceImpl implements PlaceService {
+public class PlaceServiceImpl extends ServiceImpl implements PlaceService {
 
 	@EJB
 	PlaceDao placeDao;
@@ -71,32 +71,6 @@ public class PlaceServiceImpl implements PlaceService {
 		return placeDao.getPlaces(c);
 	}
 	
-
-	@Override
-	public Place create(Place p) {
-		return placeDao.create(p);
-	}
-
-	@Override
-	public Place update(Place p) {
-		return placeDao.update(p);
-	}
-
-	@Override
-	public void delete(long id) {
-		placeDao.delete(Place.class, id);
-		
-	}
-
-	@Override
-	public Place findById(long id) {
-		return placeDao.findById(Place.class, id);
-	}
-
-	@Override
-	public List<Place> findAll() {
-		return placeDao.findAll(Place.class);
-	}
 
 	@Override
 	public List<Place> getPlacesAround(Double north, Double east, Double south, Double west) {

@@ -25,7 +25,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name="City")
 @NamedQueries({
 	@NamedQuery(name="City.findAll", query="SELECT c FROM City c"),
-	@NamedQuery(name="City.findByName", query="SELECT c FROM City c WHERE c.name = :name")
+	@NamedQuery(name="City.findByName", query="SELECT c FROM City c WHERE c.name = :name"),
+	@NamedQuery(name="City.findByCountry", query="SELECT c FROM City c WHERE c.region.country = :country")
 })
 public class City implements Serializable {
 	

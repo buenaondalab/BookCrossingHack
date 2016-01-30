@@ -5,11 +5,10 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,7 +21,14 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="Book")
-@NamedQuery(name="Book.findAll", query="SELECT b FROM Book b")
+@NamedQueries(value = {
+		@NamedQuery(name="Book.findAll", query="SELECT b FROM Book b"),
+		@NamedQuery(name="Book.findByAuthor", query="SELECT B FROM Book b WHERE b.author = :author"),
+		@NamedQuery(name="Book.findByTitle", query="SELECT B FROM Book b WHERE b.title = :title"),
+		@NamedQuery(name="Book.findAround", query="SELECT B FROM Book b WHERE ((:west < :east AND b.place.lng BETWEEN :west AND :east )" +
+																		    " OR (:east < :west AND (b.place.lng > :east OR b.place.lng < :west )))" +
+																	  		" AND b.place.lat BETWEEN :south AND :north")		
+	})
 public class Book implements Serializable {
 	
 	private static final long serialVersionUID = 4157729363411740171L;
@@ -44,7 +50,6 @@ public class Book implements Serializable {
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	public String getId() {
 		return this.id;

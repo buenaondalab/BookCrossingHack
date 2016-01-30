@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * The persistent class for the Place database table.
- * TODO: check findAround query... not so clear...
+ * 
  */
 @XmlRootElement
 @Entity
@@ -32,13 +32,13 @@ import javax.xml.bind.annotation.XmlTransient;
 	@NamedQuery(name="Place.findByCity", query="SELECT p FROM Place p WHERE p.city = :city"),
 	@NamedQuery(name="Place.findAround", query="SELECT p FROM Place p WHERE ((:west < :east AND p.lng BETWEEN :west AND :east )" +
 																		    " OR (:east < :west AND (p.lng > :east OR p.lng < :west )))" +
-																	  " AND p.lat BETWEEN :south AND :north")
+																	  		" AND p.lat BETWEEN :south AND :north")
 	
 	})
 public class Place implements GeoPosition, Serializable {
 	
 	private static final long serialVersionUID = 5404046414068333473L;
-	private String id;
+	private Long id;
 	private String address;
 	private double lat;
 	private double lng;
@@ -50,14 +50,21 @@ public class Place implements GeoPosition, Serializable {
 	}
 
 
+	public Place(Long id, String name, City city) {
+		
+		this.id = id;
+		this.name = name;
+		this.city = city;
+	}
+
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
-	public String getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

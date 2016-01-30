@@ -36,7 +36,7 @@ public class PlacesController {
 	@Path("/all")
 	public List<Place> getAllPlaces() {
 		
-		List<Place> places = placeService.findAll();
+		List<Place> places = placeService.findAll(Place.class);
 		return places;		
 	}
 	
@@ -50,7 +50,7 @@ public class PlacesController {
 		List<Place> places;
 		
 		if(country.contentEquals("all")) {
-			places = placeService.findAll();
+			places = placeService.findAll(Place.class);
 		}
 		else {
 			places = placeService.getPlacesByCountry(country);

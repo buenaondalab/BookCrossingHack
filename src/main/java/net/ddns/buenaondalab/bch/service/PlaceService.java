@@ -10,17 +10,7 @@ import net.ddns.buenaondalab.bch.model.Place;
 import net.ddns.buenaondalab.bch.model.Region;
 
 @Local
-public interface PlaceService {
-	
-	Place create(Place p);
-
-	Place update(Place p);
-
-	void delete(long id);
-
-	Place findById(long id);
-	
-	List<Place> findAll();
+public interface PlaceService extends Service {
 	
 	/**
 	 * Get all places in Country c

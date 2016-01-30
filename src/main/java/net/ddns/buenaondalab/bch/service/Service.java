@@ -1,12 +1,12 @@
-package net.ddns.buenaondalab.bch.dao;
+package net.ddns.buenaondalab.bch.service;
 
 import java.util.List;
 
 import javax.ejb.Local;
 
 @Local
-public interface Dao {
-
+public interface Service {
+	
 	<E> E create(E e);
 
 	<E> E update(E e);
@@ -16,6 +16,5 @@ public interface Dao {
 	<E> E findById(Class<E> clazz, long id);
 	
 	<E> List<E> findAll(Class<E> clazz);
-
 
 }
