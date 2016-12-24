@@ -1,11 +1,19 @@
 ---------------------------------------------------------------------------------
 TomEE Project configuration with JAX-RS, JPA, MySQL
 ---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 
 1) Don't forget index.jsp in WebContent
+2) Double-click on the server in the server's tab in eclipse, it will open a setup page.
+   In server locations options select: "Use Tomcat installation (takes control of tomcat installation)"
+   Deploy path: webapps
 
-2) Put mysql-connector-java-5.1.33-bin.jar (mysql driver) in apache-tomee /lib folder
-3) Create file resources.xml in src/main/java/META-INF folder
+
+---------------------------------------------------------------------------------
+Define a DataSource
+---------------------------------------------------------------------------------
+3) Put mysql-connector-java-5.1.33-bin.jar (mysql driver) in apache-tomee /lib folder
+4) Create file resources.xml in src/main/java/META-INF folder
    (same folder of persistence.xml) with the following content:
 
      <Resource id="BCHackDb" type="DataSource">
@@ -15,8 +23,13 @@ TomEE Project configuration with JAX-RS, JPA, MySQL
         Password pierce@6
         JtaManaged true
      </Resource>
+     
+----------------------------------------------------------------------------------
+Setup TomEE Security
+----------------------------------------------------------------------------------
+5) TODO
 
+----------------------------------------------------------------------------------
+Setup Application Security (Apache Shiro Framework)
+----------------------------------------------------------------------------------
 
-4) Double-click on the server in the server's tab in eclipse, it will open a setup page.
-   In server locations options select: "Use Tomcat installation (takes control of tomcat installation)"
-   Deploy path: webapps
