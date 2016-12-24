@@ -21,7 +21,7 @@ public class HackerTimerTaskImpl implements HackerTimerTask {
    @EJB
    private HackerService hackerService;
    
-   private Logger logger = LoggerFactory.getLogger(HackerTimerTask.class);
+   private static final Logger LOGGER = LoggerFactory.getLogger(HackerTimerTask.class);
  
    /* (non-Javadoc)
     * @see net.ddns.buenaondalab.bch.hacker.HackerTask#scheduleSingleTask(long)
@@ -39,7 +39,7 @@ public class HackerTimerTaskImpl implements HackerTimerTask {
    @Override
    public void execute(long timeout, long interval) {
 	   
-      this.timerService.createTimer(timeout, interval, "Timer interval set to + " + interval + "ms");
+      this.timerService.createTimer(timeout, interval, "Timer interval set to + " + interval/60000D + "minutes.");
    }
  
    /* (non-Javadoc)
@@ -49,6 +49,8 @@ public class HackerTimerTaskImpl implements HackerTimerTask {
 	@Timeout
 	@Override
 	public void synchDBData(Timer timer) {
+		
+		LOGGER.info("Data synchronization with Bookcrossing website started!");
 		
 		Country italy = hackerService.findById(Country.class, HackerServiceImpl.ITALY_ID);
 		
@@ -61,6 +63,6 @@ public class HackerTimerTaskImpl implements HackerTimerTask {
 //		syncPlaces();
 		hackerService.syncPlaces(italy);
 //		syncBooks();
-		logger.info((String) timer.getInfo());
+		LOGGER.info("Data synchronization with Bookcrossing website completed!");
 	}
 }

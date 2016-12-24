@@ -5,6 +5,9 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Application Lifecycle Listener implementation class BCHContextListener
  *
@@ -14,6 +17,8 @@ public class BCHContextListener implements ServletContextListener {
 	
 	@EJB
 	private HackerTimerTask task;
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(BCHContextListener.class);
 	
 	private static final long INTERVAL = 1000*60*60*3; // executes every 6 hour 
 	
@@ -27,7 +32,7 @@ public class BCHContextListener implements ServletContextListener {
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)
      */
     public void contextDestroyed(ServletContextEvent arg0)  { 
-    	System.out.println("BCHContextListener shutdown.");
+    	LOGGER.info("BCHContextListener shutdown.");
     }
 
 	/**
@@ -36,7 +41,7 @@ public class BCHContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent arg0)  { 
         
     	task.execute(10000, INTERVAL);
-    	System.out.println("HackerTask scheduled every " + INTERVAL +  "ms.");
+    	
     }
 	
 }

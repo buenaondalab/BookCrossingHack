@@ -54,9 +54,10 @@ public class HackerServiceImpl extends ServiceImpl implements HackerService {
 	@EJB
 	PlaceDao placeDao;
 
-
-	private void createNewCities(final Region region) throws IOException {
-		Map<Long,String> cityMap;
+	private void synchCities(final Region region) throws IOException {
+		
+		Map<Long, String> cityMap;
+		LOGGER.info("Syncronizing cities for {} region in {}...", region, region.getCountry());
 		// TODO: insert url field in entity class...
 		cityMap = this.getData(SEARCH_URL + "/" + region.getCountry().getId() + "/" + region.getId());
 
@@ -68,6 +69,7 @@ public class HackerServiceImpl extends ServiceImpl implements HackerService {
 				cityDao.create(new City(id, value, region));
 			}
 		}
+		LOGGER.info("Cities for region {} in {} syncronized.", region, region.getCountry());
 	}
 
 	/**
@@ -79,12 +81,12 @@ public class HackerServiceImpl extends ServiceImpl implements HackerService {
 	 */
 	private List<Place> createNewPlaces(final City city) throws IOException {
 
-		Map<Long,String> placeMap;
+		Map<Long, String> placeMap;
 		final List<Place> newPlaces = new ArrayList<>();
 
 		// TODO: insert url field in entity class...
-		placeMap = this.getData(SEARCH_URL + "/" + city.getRegion().getCountry().getId() + "/" + city.getRegion().getId()
-				+ "/" + city.getId());
+		placeMap = this.getData(SEARCH_URL + "/" + city.getRegion().getCountry().getId() + "/"
+				+ city.getRegion().getId() + "/" + city.getId());
 
 		for (final Long id : placeMap.keySet()) {
 
@@ -97,12 +99,11 @@ public class HackerServiceImpl extends ServiceImpl implements HackerService {
 			}
 		}
 
-		LOGGER.info("Places' list updated");
 		return newPlaces;
 	}
 
 	private void createNewRegions(final Country country) throws IOException {
-		Map<Long,String> regionMap;
+		Map<Long, String> regionMap;
 		regionMap = this.getData(SEARCH_URL + "/" + country.getId());
 
 		for (final Long id : regionMap.keySet()) {
@@ -118,14 +119,14 @@ public class HackerServiceImpl extends ServiceImpl implements HackerService {
 	/**
 	 *
 	 * @param url
-	 *           BookCrossing page url
+	 *            BookCrossing page url
 	 * @return
 	 * @throws IOException
 	 */
-	private Map<Long,String> getData(final String url) throws IOException {
+	private Map<Long, String> getData(final String url) throws IOException {
 
 		// System.out.println("Starting retrieving data...");
-		final Map<Long,String> data = new HashMap<Long,String>();
+		final Map<Long, String> data = new HashMap<Long, String>();
 		final Document bcPage = Jsoup.connect(url).timeout(TIMEOUT).get();
 		final Element bookshelf = bcPage.getElementById(DIV_BOOKSHELF_HOLDER);
 
@@ -151,8 +152,6 @@ public class HackerServiceImpl extends ServiceImpl implements HackerService {
 	}
 
 	private void setPlacesInfo(final List<Place> places) throws IOException {
-
-		System.out.println("Getting places info...");
 
 		for (final Place place : places) {
 
@@ -205,12 +204,12 @@ public class HackerServiceImpl extends ServiceImpl implements HackerService {
 
 		try {
 
-			LOGGER.info("Getting cities...");
+			LOGGER.info("Synchronizing cities...");
 			final List<Region> regions = regionDao.findAll(Region.class);
 
 			for (final Region region : regions) {
 
-				createNewCities(region);
+				synchCities(region);
 
 			}
 			LOGGER.info("Cities are synchronized!");
@@ -231,7 +230,7 @@ public class HackerServiceImpl extends ServiceImpl implements HackerService {
 
 			for (final Region region : regions) {
 
-				createNewCities(region);
+				synchCities(region);
 
 			}
 			LOGGER.info("{}'s cities are synchronized!", country.getName());
@@ -251,7 +250,7 @@ public class HackerServiceImpl extends ServiceImpl implements HackerService {
 
 			LOGGER.info("Getting countries...");
 
-			final Map<Long,String> countryMap = this.getData(SEARCH_URL);
+			final Map<Long, String> countryMap = this.getData(SEARCH_URL);
 
 			for (final Long id : countryMap.keySet()) {
 
@@ -265,8 +264,7 @@ public class HackerServiceImpl extends ServiceImpl implements HackerService {
 			}
 			LOGGER.info("Countries are synchronized!");
 
-		}
-		catch (final IOException e) {
+		} catch (final IOException e) {
 			LOGGER.error("Problems retrieving countries data", e);
 		}
 
@@ -378,19 +376,15 @@ public class HackerServiceImpl extends ServiceImpl implements HackerService {
 	 * FOR PAGES THAT NEED AUTHENTICATION
 	 *
 	 * Connection.Response res =
-	 * Jsoup.connect("http://www.example.com/login.php")
-	 * .data("username", "myUsername", "password", "myPassword")
-	 * .method(Method.POST)
-	 * .execute();
+	 * Jsoup.connect("http://www.example.com/login.php") .data("username",
+	 * "myUsername", "password", "myPassword") .method(Method.POST) .execute();
 	 *
-	 * Document doc = res.parse();
-	 * String sessionId = res.cookie("SESSIONID"); // you will need to check what
-	 * the right cookie name is
-	 * And then send it on the next request like:
+	 * Document doc = res.parse(); String sessionId = res.cookie("SESSIONID");
+	 * // you will need to check what the right cookie name is And then send it
+	 * on the next request like:
 	 *
 	 * Document doc2 = Jsoup.connect("http://www.example.com/otherPage")
-	 * .cookie("SESSIONID", sessionId)
-	 * .get();
+	 * .cookie("SESSIONID", sessionId) .get();
 	 *
 	 */
 }
