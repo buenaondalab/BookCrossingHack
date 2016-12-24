@@ -13,6 +13,9 @@
 		<scope>provided</scope>
 	</dependency>
   	
+  	
+  	
+  	<!-- Html parser used by Hacker to navigate Bookcrossing website -->
   	<dependency>
 		<groupId>org.jsoup</groupId>
 		<artifactId>jsoup</artifactId>
@@ -58,8 +61,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.3</version>
         <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
     </plugins>
