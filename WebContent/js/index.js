@@ -6,7 +6,7 @@ var home = {
 		markers : undefined,
 		position : undefined,
 		googlePosition : undefined,
-		placeRestServiceAddress : "http://localhost:8080/BCHRest/places/bounded",
+		placeRestServiceAddress : "http://localhost:8080/BCHRest/rest/places/bounded",
 		
 		init : function () {
 			home.divMap = document.getElementById('map');

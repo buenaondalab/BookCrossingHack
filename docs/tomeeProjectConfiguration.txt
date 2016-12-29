@@ -27,9 +27,9 @@ Define a DataSource
 ----------------------------------------------------------------------------------
 Setup TomEE Security
 ----------------------------------------------------------------------------------
-5) TODO
+5) Enable https.
 
 ----------------------------------------------------------------------------------
 Setup Application Security (Apache Shiro Framework)
 ----------------------------------------------------------------------------------
-
+6) Create a shiro.ini configuration file in WEB-INF folder (same folder of web.xml)
