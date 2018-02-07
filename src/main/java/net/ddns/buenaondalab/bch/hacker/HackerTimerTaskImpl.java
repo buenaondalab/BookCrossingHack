@@ -52,11 +52,10 @@ public class HackerTimerTaskImpl implements HackerTimerTask {
 		
 		LOGGER.info("Data synchronization with Bookcrossing website started!");
 		
-		Country italy = hackerService.findById(Country.class, HackerServiceImpl.ITALY_ID);
-		
 //		hackerService.syncAll();
-//		hackerService.syncCountries();
+		hackerService.syncCountries();
 //		hackerService.syncRegions();
+		Country italy = hackerService.findById(Country.class, HackerServiceImpl.ITALY_ID);
 		hackerService.syncRegions(italy);
 //		hackerService.syncCities();
 		hackerService.syncCities(italy);

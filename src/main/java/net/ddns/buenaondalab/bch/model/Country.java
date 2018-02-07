@@ -1,6 +1,7 @@
 package net.ddns.buenaondalab.bch.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -68,7 +69,12 @@ public class Country implements Serializable {
 	@XmlTransient
 	@OneToMany(mappedBy="country")
 	public List<Region> getRegions() {
-		return this.regions;
+		if(this.regions != null) {
+			return this.regions;
+		}
+		else {
+			return new ArrayList<>();
+		}
 	}
 
 	public void setRegions(List<Region> regions) {

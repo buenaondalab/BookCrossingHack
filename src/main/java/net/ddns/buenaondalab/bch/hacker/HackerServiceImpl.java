@@ -110,7 +110,8 @@ public class HackerServiceImpl extends ServiceImpl implements HackerService {
 			final String value = regionMap.get(id);
 			final Region dbRegion = regionDao.findById(Region.class, id);
 			if (dbRegion == null) {
-				regionDao.create(new Region(id, value, country));
+				Region newRegion = regionDao.create(new Region(id, value, country));
+				country.addRegion(newRegion);
 				LOGGER.info("Region {} in country {} created!", value, country.getName());
 			}
 		}
